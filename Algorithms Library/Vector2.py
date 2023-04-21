@@ -25,19 +25,62 @@ class vector2:
     def distance_manhattan(self, other: 'vector2') -> 'vector2':
         return abs(self.x - other.x) + abs(self.y - other.y)
     
+    # bound checking functions is included
+
+    def within_bounds(self, x_bound: int, y_bound: int) -> bool: # assumes that lower bound is 0, excludes upper bound
+        return 0 <= self.x < x_bound and 0 <= self.y < y_bound
+    
+    def within_bounds_inclusive(self, x_bound: int, y_bound: int) -> bool: # assumes that lower bound is 0, includes upper bound
+        return 0 <= self.x <= x_bound and 0 <= self.y <= y_bound
+    
+    def within_bounds_custom(self, x_bound_lower: int, x_bound_upper: int, y_bound_lower: int, y_bound_upper: int) -> bool:
+        return x_bound_lower <= self.x < x_bound_upper and y_bound_lower <= self.y < y_bound_upper
+    
+    def within_bounds_custom_inclusive(self, x_bound_lower: int, x_bound_upper: int, y_bound_lower: int, y_bound_upper: int) -> bool:
+        return x_bound_lower <= self.x <= x_bound_upper and y_bound_lower <= self.y <= y_bound_upper
+    
+    # five identity-returning class functions are included
+
+    def zero() -> 'vector2': 
+        return vector2(0, 0)
+    
+    def left() -> 'vector2':
+        return vector2(-1, 0)
+    
+    def right() -> 'vector2':
+        return vector2(1, 0)
+    
+    def up() -> 'vector2':
+        return vector2(0, 1)
+    
+    def down() -> 'vector2':
+        return vector2(0, -1)
+    
     # four movement functions are included
 
-    def left(self) -> 'vector2':
+    def move_left(self) -> 'vector2':
         return vector2(self.x - 1, self.y)
     
-    def right(self) -> 'vector2':
+    def move_right(self) -> 'vector2':
         return vector2(self.x + 1, self.y)
     
-    def up(self) -> 'vector2':
+    def move_up(self) -> 'vector2':
         return vector2(self.x, self.y + 1)
     
-    def down(self) -> 'vector2':
+    def move_down(self) -> 'vector2':
         return vector2(self.x, self.y - 1)
+    
+    # two turning functions are included, which assumes that the vector2 holds the direction identities
+    # i.e. left, right, up, down
+
+    clockwise_directions = {(1, 0): (0, -1), (0, -1): (-1, 0), (-1, 0): (0, 1), (0, 1): (1, 0)}
+    anticlockwise_directions = {(1, 0): (0, 1), (0, 1): (-1, 0), (-1, 0): (0, -1), (0, -1): (1, 0)}
+
+    def turn_left(self) -> None: # modifies vector2 in-place
+        self.x, self.y = vector2.anticlockwise_directions[(self.x, self.y)]
+    
+    def turn_right(self) -> None: # modifies vector2 in-place
+        self.x, self.y = vector2.clockwise_directions[(self.x, self.y)]
     
     # functions to get neighbour coordinates, which return tuples (to save memory)
 
