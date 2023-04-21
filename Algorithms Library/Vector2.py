@@ -85,10 +85,10 @@ class vector2:
     # functions to get neighbour coordinates, which return tuples (to save memory)
 
     def neighbours(self) -> tuple['vector2']: # clockwise starting from right, ends at top
-        return self.right(), self.down, self.left, self.up() 
+        return self.move_right(), self.move_down(), self.move_left(), self.move_up() 
     
     def neighbours_eight(self) -> tuple['vector2']: # clockwise starting from top right, ends at top
-        return vector2(self.x+1, self.y+1), self.right(), vector2(self.x+1, self.y-1), self.down, vector2(self.x-1, self.y-1), self.left, vector2(self.x-1, self.y+1), self.up()
+        return vector2(self.x+1, self.y+1), self.move_right(), vector2(self.x+1, self.y-1), self.move_down(), vector2(self.x-1, self.y-1), self.move_left(), vector2(self.x-1, self.y+1), self.move_up()
     
     # below are comparison methods that firstly compares x then y
     
