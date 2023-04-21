@@ -19,10 +19,10 @@ class vector2:
     def swap(self) -> 'vector2': # swaps x for y and y for x, different from c++'s swap
         return vector2(self.y, self.x)
     
-    def distance_euclidean(self, other: 'vector2') -> 'vector2':
+    def distance_euclidean(self, other: 'vector2') -> float:
         return ((self.x - other.x)**2 + (self.y - other.y)**2)**0.5
     
-    def distance_manhattan(self, other: 'vector2') -> 'vector2':
+    def distance_manhattan(self, other: 'vector2') -> float:
         return abs(self.x - other.x) + abs(self.y - other.y)
     
     # bound checking functions is included
@@ -84,10 +84,10 @@ class vector2:
     
     # functions to get neighbour coordinates, which return tuples (to save memory)
 
-    def neighbours(self) -> 'vector2': # clockwise starting from right, ends at top
+    def neighbours(self) -> tuple['vector2']: # clockwise starting from right, ends at top
         return self.right(), self.down, self.left, self.up() 
     
-    def neighbours_eight(self) -> 'vector2': # clockwise starting from top right, ends at top
+    def neighbours_eight(self) -> tuple['vector2']: # clockwise starting from top right, ends at top
         return vector2(self.x+1, self.y+1), self.right(), vector2(self.x+1, self.y-1), self.down, vector2(self.x-1, self.y-1), self.left, vector2(self.x-1, self.y+1), self.up()
     
     # below are comparison methods that firstly compares x then y

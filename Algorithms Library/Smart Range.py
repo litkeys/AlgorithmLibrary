@@ -1,5 +1,5 @@
 # smart range function that automatically negates the step argument when start is more positive than stop
-def srange(*args: int):
+def srange(*args: list[int]):
     l = len(args)
     if l == 1: # srange(stop)
         start = 0
