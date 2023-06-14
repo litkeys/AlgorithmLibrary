@@ -10,9 +10,13 @@ def srange(*args: list[int]): # returns a generator
     examples of such include an int/float in string, Decimal class, etc.
 
     the default value for start is 0, and for step is 1 (or -1 if start > stop)
+    all values are rounded to 10 decimal places to avoid float precision error
+    error feedbacks are 1-indexed, meaning that argument 1 refers to the first argument
     """
 
     l = len(args)
+
+    args = list(args)
 
     for i in range(l):
         t = type(args[i])
@@ -22,7 +26,7 @@ def srange(*args: list[int]): # returns a generator
                 if args[i] % 1 == 0:
                     args[i] = int(args[i])
             except Exception:
-                raise ValueError(f"srange argument {i} must be of type int or float, not {t}")
+                raise ValueError(f"srange argument {i+1} must be of type int or float, not {t}")
 
     if l == 1: # srange(stop)
         start = 0
@@ -53,8 +57,8 @@ def srange(*args: list[int]): # returns a generator
     if start < stop:
         while current_value < stop:
             yield current_value
-            current_value += step
+            current_value = round(current_value + step, 10)
     else:
         while current_value > stop:
             yield current_value
-            current_value += step
+            current_value = round(current_value + step, 10)
