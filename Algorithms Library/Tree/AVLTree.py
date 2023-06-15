@@ -163,7 +163,7 @@ class AVLTree:
         else:
             return self.searchTree(root.right, key)
         
-    def searchNode(self, key) -> AVLTreeNode: # Call this function to search for a node with a particular key
+    def searchNode(self, key) -> AVLTreeNode: # Call this to search for a node with a particular key
         return self.__searchNode(self.root, key)
     
     # ==============================================================================
@@ -211,7 +211,7 @@ class AVLTree:
     # TREE DISPLAY FUNCTIONS
 
     # Print the tree
-    def printHelper(self, currPtr, indent, last):
+    def __printTree(self, currPtr, indent, last):
         if currPtr != None:
             sys.stdout.write(indent)
             if last:
@@ -221,5 +221,8 @@ class AVLTree:
                 sys.stdout.write("L----")
                 indent += "|    "
             print(currPtr.key)
-            self.printHelper(currPtr.left, indent, False)
-            self.printHelper(currPtr.right, indent, True)
+            self.__printTree(currPtr.left, indent, False)
+            self.__printTree(currPtr.right, indent, True)
+
+    def printTree(self): # Call this to print the Tree in a vertical format
+        self.__printTree(self.root, "", True)
