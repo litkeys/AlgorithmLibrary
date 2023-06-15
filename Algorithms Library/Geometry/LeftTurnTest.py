@@ -6,7 +6,7 @@ class Point:
         self.y = y
 
 # Point class version
-def ltt(p1: Point, p2: Point, p3: Point) -> int:
+def lttp(p1: Point, p2: Point, p3: Point) -> int:
     result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x)
     if result < 0: 
         return -1 # right turn
