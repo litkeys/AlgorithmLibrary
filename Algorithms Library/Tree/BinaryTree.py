@@ -43,3 +43,19 @@ class BinaryTree(object):
         if root == None:
             return []
         return self.postOrder(root.left) + self.postOrder(root.right) + [root]
+    
+
+if __name__ == "__main__":
+
+    a = BinaryTreeNode("A")
+    b = BinaryTreeNode("B")
+    c = BinaryTreeNode("C")
+    a.left = b
+    a.right = c
+
+    tree = BinaryTree(a)
+    #print(tree)
+
+    print(tree.preOrder())
+    print(tree.inOrder())
+    print(tree.postOrder())

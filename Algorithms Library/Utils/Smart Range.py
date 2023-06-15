@@ -62,3 +62,21 @@ def srange(*args: list[int]): # returns a generator
         while current_value > stop:
             yield current_value
             current_value = round(current_value + step, 10)
+
+
+if __name__ == "__main__":
+
+    # Regular use cases
+    print(list(srange(-10)))
+    print(list(srange(5, -5)))
+    print(list(srange(1, 10, 0.5)))
+    print(list(srange(-10, -100, 10)))
+
+    # Exception cases
+    print(list(srange(0, "-10", 2)))
+    print(list(srange("1", 9, "0.3")))
+    from decimal import Decimal
+    print(list(srange("1", 5, Decimal(0.33))))
+
+    # Error cases
+    # print(list(srange("k")))

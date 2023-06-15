@@ -161,3 +161,10 @@ class UWGraph: # undirected weighted simple graph
                 else:
                     stack.append((neighbour, depth+1))
         return True
+    
+
+if __name__ == "__main__":
+
+    mygraph = UWGraph.construct_via_EdgeList([("A", "B", 3), ("A", "C", 1), ("C", "B", 4), ("C", "D", 1)])
+    print(mygraph.dijkstras("A"))
+    print(mygraph.is_bipartite())

@@ -6,5 +6,4 @@ Note that iterable type hinting introduced in the later versions of Python are n
 - `srange` function
 - `BinaryTree` class `preOrder`, `inOrder`, `postOrder` methods
 
-Test data is NOT included within any script in the library due to the maintenance of their copy-pastable nature.
-New users must create their own test data, or consult one of our collaborators or the repository owner.
+Test data is included within any script in the library, so please comment them out if you wish to copy paste on the spot.

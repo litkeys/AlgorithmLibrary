@@ -1,5 +1,5 @@
 
-def isValid(self, s: str) -> bool:
+def isValid(s: str) -> bool:
     stack = []
     for char in s:
         if char == '(' or char == '{' or char == '[':

@@ -1,4 +1,4 @@
-def lengthOfLIS(self, nums: list[int]) -> int:
+def lengthOfLIS(nums: list[int]) -> int:
     if not nums:
         return 0
 

@@ -45,3 +45,18 @@ class Tree:
             order += self.postOrder(child)
         order += [root]
         return order
+    
+
+if __name__ == "__main__":
+
+    a = TreeNode("A")
+    b = TreeNode("B")
+    c = TreeNode("C")
+    d = TreeNode("D")
+    a.children += [b, c, d]
+
+    tree = Tree(a)
+    #print(tree)
+
+    print(tree.preOrder())
+    print(tree.postOrder())

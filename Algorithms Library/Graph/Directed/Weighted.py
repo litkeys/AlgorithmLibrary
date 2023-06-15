@@ -161,3 +161,18 @@ class DWGraph: # directed weighted simple graph
                 else:
                     stack.append((neighbour, depth+1))
         return True
+    
+
+if __name__ == "__main__":
+
+    mygraph = DWGraph.construct_via_EdgeList([("A", "B", 3), ("A", "C", 1), ("C", "B", 4), ("C", "D", 1)])
+    print(mygraph.dijkstras("A"))
+    print(mygraph.is_bipartite())
+
+    mygraph = DWGraph.construct_via_EdgeList([("A", "B", 3), ("B", "C", 1), ("C", "A", 4), ("C", "D", 1)])
+    print(mygraph.is_bipartite())
+
+    mygraph = DWGraph.construct_via_EdgeList([("A", "B", 1), ("B", "D", 1), ("A", "C", 10), ("C", "D", -10)])
+    print(mygraph.dijkstras("A"))
+    print(mygraph.bellman_fords("A"))
+    print(mygraph.is_bipartite())

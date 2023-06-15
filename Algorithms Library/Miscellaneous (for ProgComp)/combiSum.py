@@ -1,5 +1,5 @@
 
-def combinationSum2(self, candidates: list[int], target: int) -> list[list[int]]:
+def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:
     ans = []
     candidates.sort()
 

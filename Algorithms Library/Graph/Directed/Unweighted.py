@@ -158,3 +158,15 @@ class DUGraph: # directed unweighted simple graph
                 else:
                     stack.append((neighbour, depth+1))
         return True
+
+
+if __name__ == "__main__":
+
+    mygraph = DUGraph.construct_via_EdgeList([("A", "B"), ("A", "C"), ("C", "B"), ("C", "D")])
+    print(mygraph.dfs("A"))
+    print(mygraph.bfs("A"))
+    print(mygraph.is_bipartite())
+    mygraph = DUGraph.construct_via_AdjacencyList([(1, 2), (2,), (3, 4), {}, {}])
+    print(mygraph.dfs(0))
+    print(mygraph.bfs(0))
+    print(mygraph.is_bipartite())
