@@ -54,7 +54,7 @@ def bruteforce_closest_pair(points: list[tuple[float, float]], min_distance = fl
 def _closest_pair_in_strip(points: list[tuple[float, float]], min_distance = float("inf")) -> list[tuple[float, float]]:
     """
     Linear O(n) algorithm to find the closest pair of points in a y-sorted 'strip'
-    Each inner loop runs in O(1) as at most 7 other points besides or below are checked
+    Each inner loop runs in O(1) as at most 5 other points besides or below are checked
     NOTE: DO NOT call this function manually, as it is a helper function
     """
     closest_pair = None
@@ -95,9 +95,9 @@ def _closest_pair_of_points(points_sorted_on_x: list[tuple[float, float]], point
         closest_distance = left_distance
         closest_pair = left_closest_pair
     
-    # middle 'strip' calculation, optimised by ignoring the right half which includes the mth point
+    # middle 'strip' calculation, optimised by lowering constant factor from 7 to 5
     points_in_strip = []
-    for point in points_sorted_on_y: # only points from the left region are considered
+    for point in points_sorted_on_y:
         if abs(point[0] - points_sorted_on_x[m][0]) < closest_distance:
             points_in_strip.append(point)
     strip_closest_pair = _closest_pair_in_strip(points_in_strip, closest_distance)
