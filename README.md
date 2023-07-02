@@ -7,3 +7,5 @@ Note that iterable type hinting introduced in the later versions of Python are n
 - `BinaryTree` class `preOrder`, `inOrder`, `postOrder` methods
 
 Test data is included within any script in the library, so please comment them out if you wish to copy paste on the spot.
+
+Folders and scripts in `Pending/...` are yet to be sorted, please use them at your own discretion.
