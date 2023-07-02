@@ -60,7 +60,7 @@ def _closest_pair_in_strip(points: list[tuple[float, float]], min_distance = flo
     closest_pair = None
     l = len(points)
     for i in range(1, l): # pick point 1
-        for j in range(max(0, i-7), i): # pick point 2
+        for j in range(max(0, i-5), i): # pick point 2
             distance = distance_euclidean(points[i], points[j])
             if distance < min_distance:
                 min_distance = distance
