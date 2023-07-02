@@ -228,23 +228,23 @@ class AVLTree:
         self.__printTree(self.root, "", True)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-    myTree = AVLTree()
-    root = None
-    nums = [33, 13, 52, 9, 21, 61, 8, 11]
-    for num in nums:
-        root = myTree.insert_node(num)
-    myTree.printTree()
-    key = 13
-    root = myTree.delete_node(key)
-    print("After Deletion: ")
-    myTree.printTree()
+#     myTree = AVLTree()
+#     root = None
+#     nums = [33, 13, 52, 9, 21, 61, 8, 11]
+#     for num in nums:
+#         root = myTree.insert_node(num)
+#     myTree.printTree()
+#     key = 13
+#     root = myTree.delete_node(key)
+#     print("After Deletion: ")
+#     myTree.printTree()
 
-    myTree = AVLTree()
-    root = None
-    nums = [33, 13, 52, 9, 21, 61, 8, 11]
-    for num in nums:
-        root = myTree.insert_node(num)
+#     myTree = AVLTree()
+#     root = None
+#     nums = [33, 13, 52, 9, 21, 61, 8, 11]
+#     for num in nums:
+#         root = myTree.insert_node(num)
 
-    print(myTree.preOrder(root))        
+#     print(myTree.preOrder(root))        

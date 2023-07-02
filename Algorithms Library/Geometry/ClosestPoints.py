@@ -54,16 +54,13 @@ def bruteforce_closest_pair(points: list[tuple[float, float]], min_distance = fl
 def _closest_pair_in_strip(points: list[tuple[float, float]], min_distance = float("inf")) -> list[tuple[float, float]]:
     """
     Linear O(n) algorithm to find the closest pair of points in a y-sorted 'strip'
-    Each inner loop runs in O(1) as at most 3 other points besides or below are checked
-    This is because the mth point belongs to the right section and defines the middle line
-    Therefore there is no need to check the right half of the 'strip'
-    This results in only 3 such squares needing to be checked, see illustration in link at the top
+    Each inner loop runs in O(1) as at most 7 other points besides or below are checked
     NOTE: DO NOT call this function manually, as it is a helper function
     """
     closest_pair = None
     l = len(points)
     for i in range(1, l): # pick point 1
-        for j in range(max(0, i-3), i): # pick point 2
+        for j in range(max(0, i-7), i): # pick point 2
             distance = distance_euclidean(points[i], points[j])
             if distance < min_distance:
                 min_distance = distance
@@ -101,7 +98,7 @@ def _closest_pair_of_points(points_sorted_on_x: list[tuple[float, float]], point
     # middle 'strip' calculation, optimised by ignoring the right half which includes the mth point
     points_in_strip = []
     for point in points_sorted_on_y: # only points from the left region are considered
-        if point[0] <= points_sorted_on_x[m][0] and distance_euclidean(point, points_sorted_on_x[m]) < closest_distance:
+        if abs(point[0] - points_sorted_on_x[m][0]) < closest_distance:
             points_in_strip.append(point)
     strip_closest_pair = _closest_pair_in_strip(points_in_strip, closest_distance)
     if strip_closest_pair != None:

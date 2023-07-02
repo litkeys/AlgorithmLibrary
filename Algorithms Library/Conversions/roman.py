@@ -55,7 +55,7 @@ def int_to_roman(number: int) -> str:
     return "".join(result)
 
 
-if __name__ == "__main__":
-    import doctest
+# if __name__ == "__main__":
+#     import doctest
 
-    doctest.testmod()
+#     doctest.testmod()
