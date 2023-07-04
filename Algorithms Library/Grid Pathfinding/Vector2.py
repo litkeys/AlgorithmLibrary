@@ -109,3 +109,8 @@ class vector2:
     
     def __le__(self, other: 'vector2') -> bool:
         return (self.x, self.y) <= (other.x, other.y)
+    
+    # copy method
+
+    def copy(self) -> 'vector2':
+        return vector2(self.x, self.y)
