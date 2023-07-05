@@ -92,6 +92,24 @@ class vector2:
     def neighbours_eight(self) -> tuple['vector2']: # clockwise starting from top right, ends at top
         return vector2(self.x+1, self.y+1), self.move_right(), vector2(self.x+1, self.y-1), self.move_down(), vector2(self.x-1, self.y-1), self.move_left(), vector2(self.x-1, self.y+1), self.move_up()
     
+    # functions to generate circles using manhattan distance
+
+    def generate_circle_filled(radius: int) -> tuple['vector2']:
+        circle_area: set[tuple[int]] = set()
+        for i in range(-radius, radius+1):
+            for j in range(radius-abs(i)+1):
+                circle_area.add((i, j))
+                circle_area.add((i, -j))
+        return tuple(vector2(x, y) for x, y in circle_area)
+    
+    def generate_circle_hollow(radius: int) -> tuple['vector2']:
+        circle_edge: set[tuple[int]] = set()
+        for i in range(-radius, radius+1):
+            j = radius-abs(i)
+            circle_edge.add((i, j))
+            circle_edge.add((i, -j))
+        return tuple(vector2(x, y) for x, y in circle_edge)
+    
     # below are comparison methods that firstly compares x then y
     
     def __eq__(self, other: 'vector2') -> bool:
