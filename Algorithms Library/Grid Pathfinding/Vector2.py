@@ -94,7 +94,7 @@ class vector2:
     
     # functions to generate circles using manhattan distance
 
-    def generate_circle_filled(radius: int) -> tuple['vector2']:
+    def generate_circle_filled(radius: int) -> tuple['vector2']: # generates relative positions
         circle_area: set[tuple[int]] = set()
         for i in range(-radius, radius+1):
             for j in range(radius-abs(i)+1):
@@ -102,13 +102,25 @@ class vector2:
                 circle_area.add((i, -j))
         return tuple(vector2(x, y) for x, y in circle_area)
     
-    def generate_circle_hollow(radius: int) -> tuple['vector2']:
+    def generate_circle_hollow(radius: int) -> tuple['vector2']: # generates relative positions
         circle_edge: set[tuple[int]] = set()
         for i in range(-radius, radius+1):
             j = radius-abs(i)
             circle_edge.add((i, j))
             circle_edge.add((i, -j))
         return tuple(vector2(x, y) for x, y in circle_edge)
+
+    def surrounding_circle_filled(self, radius: int) -> tuple['vector2']: # generates exact positions
+        circle_area: set[tuple[int]] = set()
+        for relative_pos in vector2.generate_circle_filled(radius):
+            circle_area.add((self.x + relative_pos.x, self.y + relative_pos.y))
+        return tuple(vector2(x, y) for x, y in circle_area)
+
+    def surrounding_circle_hollow(self, radius: int) -> tuple['vector2']: # generates exact positions
+        circle_area: set[tuple[int]] = set()
+        for relative_pos in vector2.generate_circle_hollow(radius):
+            circle_area.add((self.x + relative_pos.x, self.y + relative_pos.y))
+        return tuple(vector2(x, y) for x, y in circle_area)
     
     # below are comparison methods that firstly compares x then y
     
