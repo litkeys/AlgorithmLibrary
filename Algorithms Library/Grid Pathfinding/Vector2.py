@@ -76,11 +76,13 @@ class vector2:
     clockwise_directions = {(1, 0): (0, -1), (0, -1): (-1, 0), (-1, 0): (0, 1), (0, 1): (1, 0)}
     anticlockwise_directions = {(1, 0): (0, 1), (0, 1): (-1, 0), (-1, 0): (0, -1), (0, -1): (1, 0)}
 
-    def turn_left(self) -> None: # modifies vector2 in-place
-        self.x, self.y = vector2.anticlockwise_directions[(self.x, self.y)]
+    def turn_left(self, ntimes: int = 1) -> None: # modifies vector2 in-place
+        for i in range(ntimes%4):
+            self.x, self.y = vector2.anticlockwise_directions[(self.x, self.y)]
     
-    def turn_right(self) -> None: # modifies vector2 in-place
-        self.x, self.y = vector2.clockwise_directions[(self.x, self.y)]
+    def turn_right(self, ntimes: int = 1) -> None: # modifies vector2 in-place
+        for i in range(ntimes%4):
+            self.x, self.y = vector2.clockwise_directions[(self.x, self.y)]
     
     # functions to get neighbour coordinates, which return tuples (to save memory)
 
