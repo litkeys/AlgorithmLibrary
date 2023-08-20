@@ -1,4 +1,5 @@
 from copy import deepcopy
+from collections import defaultdict
 
 class DUGraph: # directed unweighted simple graph
     
@@ -17,6 +18,7 @@ class DUGraph: # directed unweighted simple graph
 
     def __init__(self, AdjacencyTable) -> None:
         self.graph = AdjacencyTable
+        self.nodecount = len(AdjacencyTable)
 
     # CONSTRUCTORS
 
@@ -100,6 +102,22 @@ class DUGraph: # directed unweighted simple graph
         Nodes with an out degree of 0 are represented in the adjacency list, therefore additional entries are not required.
         """
         return DUGraph(AdjacencyTable)
+
+    # ==============================================================================
+
+    # CONVERTERS
+
+    def convert_to_bidirectional(self) -> 'DUGraph': # returns a new graph
+        """
+        Necessary for bipartite property check.
+        Every edge becomes bi-directional after conversion.
+        Runs in O(VE) time.
+        """
+        newgraph = deepcopy(self.graph)
+        for node in newgraph:
+            for neighbour in newgraph[node]:
+                newgraph[neighbour].add(node)
+        return DUGraph.construct_via_AdjacencyTable(newgraph)
     
     # ==============================================================================
 
@@ -135,6 +153,25 @@ class DUGraph: # directed unweighted simple graph
     
     # ==============================================================================
 
+    # TOPOLOGICAL SORT
+
+    def _topological_sort(self, node, visited: dict, stack: list):
+        visited[node] = True
+        for neighbour in self.graph[node]:
+            if visited[neighbour] == False:
+                self._topological_sort(neighbour, visited, stack)
+        stack.append(node)
+
+    def topological_sort(self):
+        visited = defaultdict(lambda: False)
+        stack = []
+        for node in self.graph:
+            if visited[node] == False:
+                self._topological_sort(node, visited, stack)
+        return stack[::-1]
+    
+    # ==============================================================================
+
     # PROPERTY CHECKS
 
     def is_bipartite(self) -> bool:
@@ -142,7 +179,10 @@ class DUGraph: # directed unweighted simple graph
         Detects cycles of odd length using dfs
         Each node is assigned a depth upon exploration
         When a visited node is encountered, compare its depth with that of the source node
-        If the difference is even, then the grahh is not bipartite
+        If the difference is even, then the graph is not bipartite
+
+        NOTE: Remember to firstly convert (a copy of) the graph to bidirectional first
+        Runs in O(V+E) time 
         """
         srcNode = tuple(self.graph.keys())[0] # any starting node would work
         visited = dict() # node: depth
@@ -160,13 +200,16 @@ class DUGraph: # directed unweighted simple graph
         return True
 
 
-# if __name__ == "__main__":
 
-#     mygraph = DUGraph.construct_via_EdgeList([("A", "B"), ("A", "C"), ("C", "B"), ("C", "D")])
-#     print(mygraph.dfs("A"))
-#     print(mygraph.bfs("A"))
-#     print(mygraph.is_bipartite())
-#     mygraph = DUGraph.construct_via_AdjacencyList([(1, 2), (2,), (3, 4), {}, {}])
-#     print(mygraph.dfs(0))
-#     print(mygraph.bfs(0))
-#     print(mygraph.is_bipartite())
+# mygraph = DUGraph.construct_via_EdgeList([("A", "B"), ("A", "C"), ("C", "B"), ("C", "D")])
+# print(mygraph.dfs("A"))
+# print(mygraph.bfs("A"))
+# print(mygraph.convert_to_bidirectional().is_bipartite()) # False
+
+# mygraph = DUGraph.construct_via_AdjacencyList([(1, 2), (2,), (3, 4), {}, {}])
+# print(mygraph.dfs(0))
+# print(mygraph.bfs(0))
+# print(mygraph.convert_to_bidirectional().is_bipartite()) # False
+
+# mygraph = DUGraph.construct_via_EdgeList([(4, 1), (4, 5), (1, 2), (5, 2), (2, 3), (5, 3), (3, 6)])
+# print(mygraph.topological_sort())
