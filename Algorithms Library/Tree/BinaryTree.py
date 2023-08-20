@@ -1,13 +1,19 @@
-class BinaryTreeNode(object):
-    def __init__(self, key):
+class BinaryTreeNode:
+    def __init__(self, key, depth = 0):
         self.key = key # value of the node
         self.left = None # left child
         self.right = None # right child
-        self.depth = 0 # depth of the node, 0 is root node
+        self.depth = depth # depth of the node, 0 is root node
+    def setLeftChild(self, child: 'BinaryTreeNode'):
+        child.depth = self.depth + 1 # automatically assigns depth
+        self.left = child
+    def setRightChild(self, child: 'BinaryTreeNode'):
+        child.depth = self.depth + 1 # automatically assigns depth
+        self.right = child
     def __repr__(self) -> str:
         return str(self.key)
 
-class BinaryTree(object):
+class BinaryTree:
 
     """
     Traversal functions default to root node of the entire tree if root argument is missing
@@ -44,18 +50,36 @@ class BinaryTree(object):
             return []
         return self.postOrder(root.left) + self.postOrder(root.right) + [root]
     
+    def getDiameter(self) -> int: # maximum distance from one treenode to another
+        branch_diameters = []
+        for subroot in (self.root.left, self.root.right):
+            stack = [(subroot, 1)] # node, depth
+            visited = set()
+            diameter = 0
+            while stack:
+                node, depth = stack.pop()
+                visited.add(node) # objects are hashable
+                if not node.left and not node.right:
+                    diameter = max(diameter, depth)
+                for childnode in (node.left, node.right):
+                    if childnode != None:
+                        stack.append((childnode, depth+1))
+            branch_diameters.append(diameter)
+        return sum(branch_diameters) + 1    
 
-# if __name__ == "__main__":
 
-#     a = BinaryTreeNode("A")
-#     b = BinaryTreeNode("B")
-#     c = BinaryTreeNode("C")
-#     a.left = b
-#     a.right = c
+# a = BinaryTreeNode("A")
+# b = BinaryTreeNode("B")
+# c = BinaryTreeNode("C")
+# a.setLeftChild(b)
+# a.setRightChild(c)
+# # a.left = b
+# # a.right = c
 
-#     tree = BinaryTree(a)
-#     #print(tree)
+# tree = BinaryTree(a)
+# #print(tree)
 
-#     print(tree.preOrder())
-#     print(tree.inOrder())
-#     print(tree.postOrder())
+# print(tree.preOrder())
+# print(tree.inOrder())
+# print(tree.postOrder())
+# print(tree.getDiameter())

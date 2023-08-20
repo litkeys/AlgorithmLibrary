@@ -1,6 +1,5 @@
 import sys
 
-# Create a tree node
 class AVLTreeNode:
     def __init__(self, key):
         self.key = key # value of the node
@@ -17,6 +16,7 @@ class AVLTree:
     Note:
     AVL Tree is a self-balancing binary search tree
     It performs better for frequent searches compared to Red Black Trees
+    All tree nodes should be inserted into the tree rather than assigning their own children.
     All keys must be distinct, meaning duplicates are not allowed
     All modifications i.e. insertion and deletion MUST occur at root of the tree
     """
@@ -205,6 +205,23 @@ class AVLTree:
         if root == None:
             return []
         return self.preOrder(root.left) + self.preOrder(root.right) + [root]
+    
+    def getDiameter(self) -> int: # maximum distance from one treenode to another
+        branch_diameters = []
+        for subroot in (self.root.left, self.root.right):
+            stack = [(subroot, 1)] # node, depth
+            visited = set()
+            diameter = 0
+            while stack:
+                node, depth = stack.pop()
+                visited.add(node) # objects are hashable
+                if not node.left and not node.right:
+                    diameter = max(diameter, depth)
+                for childnode in (node.left, node.right):
+                    if childnode != None:
+                        stack.append((childnode, depth+1))
+            branch_diameters.append(diameter)
+        return sum(branch_diameters) + 1
 
     # ==============================================================================
 
@@ -228,23 +245,23 @@ class AVLTree:
         self.__printTree(self.root, "", True)
 
 
-# if __name__ == "__main__":
-    
-#     myTree = AVLTree()
-#     root = None
-#     nums = [33, 13, 52, 9, 21, 61, 8, 11]
-#     for num in nums:
-#         root = myTree.insert_node(num)
-#     myTree.printTree()
-#     key = 13
-#     root = myTree.delete_node(key)
-#     print("After Deletion: ")
-#     myTree.printTree()
+# myTree = AVLTree()
+# root = None
+# nums = [33, 13, 52, 9, 21, 61, 8, 11]
+# for num in nums:
+#     root = myTree.insert_node(num)
+# myTree.printTree()
+# key = 13
+# root = myTree.delete_node(key)
+# print("After Deletion: ")
+# myTree.printTree()
 
-#     myTree = AVLTree()
-#     root = None
-#     nums = [33, 13, 52, 9, 21, 61, 8, 11]
-#     for num in nums:
-#         root = myTree.insert_node(num)
+# myTree = AVLTree()
+# root = None
+# nums = [33, 13, 52, 9, 21, 61, 8, 11]
+# for num in nums:
+#     root = myTree.insert_node(num)
 
-#     print(myTree.preOrder(root))        
+# print(myTree.preOrder(root))
+# myTree.printTree()
+# print(myTree.getDiameter())

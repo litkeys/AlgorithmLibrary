@@ -1,8 +1,12 @@
 class TreeNode:
-    def __init__(self, key):
+    def __init__(self, key, depth = 0):
         self.key = key # value of the node
         self.children = [] # children of the node
-        self.depth = 0 # depth of the node, 0 is root node
+        self.depth = depth # depth of the node, 0 is root node
+    def addChildren(self, *children: list['TreeNode']):
+        for child in children:
+            child.depth = self.depth + 1 # automatically assigns depth
+            self.children.append(child)
     def __repr__(self) -> str:
         return str(self.key)
     
@@ -46,17 +50,36 @@ class Tree:
         order += [root]
         return order
     
+    def getDiameter(self) -> int: # maximum distance from one treenode to another
+        branch_diameters = []
+        for subroot in self.root.children:
+            stack = [(subroot, 1)] # node, depth
+            visited = set()
+            diameter = 0
+            while stack:
+                node, depth = stack.pop()
+                visited.add(node) # objects are hashable
+                if not node.children:
+                    diameter = max(diameter, depth)
+                for childnode in node.children:
+                    stack.append((childnode, depth+1))
+            branch_diameters.append(diameter)
+        return sum(sorted(branch_diameters)[-2:]) + 1
 
-# if __name__ == "__main__":
 
-#     a = TreeNode("A")
-#     b = TreeNode("B")
-#     c = TreeNode("C")
-#     d = TreeNode("D")
-#     a.children += [b, c, d]
+# a = TreeNode("A")
+# b = TreeNode("B")
+# c = TreeNode("C")
+# d = TreeNode("D")
+# e = TreeNode("E")
+# a.addChildren(b, c, d)
+# b.addChildren(e)
+# # a.children += [b, c, d]
+# # b.children += [e]
 
-#     tree = Tree(a)
-#     #print(tree)
+# tree = Tree(a)
+# #print(tree)
 
-#     print(tree.preOrder())
-#     print(tree.postOrder())
+# print(tree.preOrder())
+# print(tree.postOrder())
+# print(tree.getDiameter())
