@@ -61,10 +61,10 @@ def insidePolygon(polygon: list[Point], p: Point):
             return True
         if pointOnLine(p, ray, polygon[i]): # crossing vertex 1
             if pointOnLine(p, ray, polygon[i+1]): # crossing vertex 2, overlapping edge
-                if lineIntersection(p, ray, polygon[i-1], polygon[i+2]): # neighbouring vertices on different sides
+                if pointSide(p, ray, polygon[i-1]) != pointSide(p, ray, polygon[i+2]): # neighbouring vertices on different sides
                     crosscount += 1
             else: # one vertex crossed only
-                if lineIntersection(p, ray, polygon[i-1], polygon[i+1]): # neighbouring vertices on different sides
+                if pointSide(p, ray, polygon[i-1]) != pointSide(p, ray, polygon[i+1]): # neighbouring vertices on different sides
                     crosscount += 1
         else: # no vertex crossed
             if lineIntersection(p, ray, polygon[i], polygon[i+1]): # ray intersects with edge
