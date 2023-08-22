@@ -4,6 +4,14 @@ class Point:
     def __init__(self, x, y) -> None:
         self.x = x
         self.y = y
+    def __sub__(self, p: 'Point') -> 'Point':
+        return Point(self.x+p.x, self.y+p.y)
+    def __sub__(self, p: 'Point') -> 'Point':
+        return Point(self.x-p.x, self.y-p.y)
+    def __mul__(self, p: 'Point') -> int: # cross product
+        return self.x*p.y - self.y*p.x
+    def __repr__(self) -> str:
+        return f"(x: {self.x}, y: {self.y})"
 
 # Point class version
 def shoelace(*points: Point) -> int:
