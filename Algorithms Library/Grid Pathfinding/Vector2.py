@@ -83,6 +83,16 @@ class vector2:
     def turn_right(self, ntimes: int = 1) -> None: # modifies vector2 in-place
         for i in range(ntimes%4):
             self.x, self.y = vector2.clockwise_directions[(self.x, self.y)]
+
+    # function for getting the relative direction of another vector2 from the current vector2
+
+    def get_relative_pos(self, other: 'vector2'): # it is assumed that other is an adjacent 4-neighbour
+        diff = other - self
+        translations = "RDLU" # change this string to match the problem
+        directions = [vector2.right(), vector2.down(), vector2.left(), vector2.up()]
+        for i in range(4):
+            if diff == directions[i]:
+                return translations[i]
     
     # functions to get neighbour coordinates, which return tuples (to save memory)
 
@@ -121,7 +131,7 @@ class vector2:
         for relative_pos in vector2.generate_circle_hollow(radius):
             circle_area.add((self.x + relative_pos.x, self.y + relative_pos.y))
         return tuple(vector2(x, y) for x, y in circle_area)
-    
+
     # below are comparison methods that firstly compares x then y
     
     def __eq__(self, other: 'vector2') -> bool:
